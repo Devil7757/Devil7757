@@ -26,4 +26,16 @@ sim = mp.Simulation(cell_size=cell,
                     resolution=10)
 
 sim.run(until=100)
+% Example SAR calculation for a dipole antenna
+frequency = 2.4e9; % GHz (Wi-Fi)
+power = 1; % Watts
+tissue_conductivity = 0.9; % S/m (muscle tissue)
+SAR = (power * tissue_conductivity) / (2 * density);
+disp(['SAR: ', num2str(SAR), ' W/kg']);
+import CoreWLAN
 
+let client = CWWiFiClient.shared()
+if let interface = client.interface() {
+    let rssi = interface.rssiValue()
+    print("Wi-Fi RSSI: \(rssi) dBm")
+}
