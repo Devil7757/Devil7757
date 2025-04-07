@@ -1,0 +1,13 @@
+# Simulate monitoring EM radiation levels for anomalies
+import numpy as np
+
+def detect_em_anomaly(signal, threshold=3.0):
+    mean = np.mean(signal)
+    std = np.std(signal)
+    anomalies = [x for x in signal if (x - mean) > threshold * std]
+    return anomalies
+
+# Sample EM signal data (e.g., from a sensor)
+em_signal = np.random.normal(0, 1, 1000)  # Normal baseline
+em_signal[500] = 10  # Simulate an anomaly (e.g., data leakage spike)
+print("Anomalies detected at indices:", detect_em_anomaly(em_signal))
