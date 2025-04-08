@@ -1,0 +1,134 @@
+import random
+
+class Card:
+    def __init__(self, suit, rank):
+        self.suit = suit
+        self.rank = rank
+
+    def __repr__(self):
+        return f"{self.rank} of {self.suit}"
+
+class Deck:
+    def __init__(self):
+        suits = ['Hearts', 'Diamonds', 'Clubs', 'Spades']
+        ranks = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']
+        self.cards = [Card(suit, rank) for suit in suits for rank in ranks]
+        random.shuffle(self.cards)
+
+    def deal(self, num_cards):
+        dealt = self.cards[:num_cards]
+        self.cards = self.cards[num_cards:]
+        return dealt
+
+class Player:
+    def __init__(self):
+        self.hand = []
+
+    def discard(self, indices):
+        for index in sorted(indices, reverse=True):
+            if 0 <= index < len(self.hand):
+                del self.hand[index]
+
+    def draw(self, new_cards):
+        self.hand.extend(new_cards)
+
+def evaluate_hand(hand):
+    rank_values = {'2':2, '3':3, '4':4, '5':5, '6':6, '7':7, 
+                   '8':8, '9':9, '10':10, 'J':11, 'Q':12, 'K':13, 'A':14}
+    sorted_ranks = sorted([rank_values[card.rank] for card in hand], reverse=True)
+    suits = [card.suit for card in hand]
+    
+    # Check flush
+    flush = len(set(suits)) == 1
+    
+    # Check straight
+    straight = False
+    unique_ranks = sorted(list(set(sorted_ranks)))
+    if len(unique_ranks) == 5:
+        if unique_ranks[-1] - unique_ranks[0] == 4 or set(unique_ranks) == {14, 2, 3, 4, 5}:
+            straight = True
+    
+    # Check straight flush
+    if flush and straight:
+        return (8, max(sorted_ranks) if 1 not in sorted_ranks else 5)
+
+    # Count ranks
+    count = {}
+    for r in sorted_ranks:
+        count[r] = count.get(r, 0) + 1
+    sorted_counts = sorted(count.values(), reverse=True)
+    sorted_values = sorted(count.keys(), key=lambda x: (-count[x], -x))
+
+    # Four of a kind
+    if sorted_counts[0] == 4:
+        return (7, sorted_values[0], sorted_values[1])
+    
+    # Full house
+    if sorted_counts == [3, 2]:
+        return (6, sorted_values[0], sorted_values[1])
+    
+    # Flush
+    if flush:
+        return (5, sorted_ranks)
+    
+    # Straight
+    if straight:
+        return (4, max(sorted_ranks) if 1 not in sorted_ranks else 5)
+    
+    # Three of a kind
+    if sorted_counts[0] == 3:
+        return (3, sorted_values[0], sorted_values[1:])
+    
+    # Two pair
+    if sorted_counts == [2, 2, 1]:
+        return (2, sorted_values[:2], sorted_values[2])
+    
+    # One pair
+    if sorted_counts[0] == 2:
+        return (1, sorted_values[0], sorted_values[1:])
+    
+    # High card
+    return (0, sorted_ranks)
+
+hand_rank_names = {
+    0: "High Card",
+    1: "One Pair",
+    2: "Two Pairs",
+    3: "Three of a Kind",
+    4: "Straight",
+    5: "Flush",
+    6: "Full House",
+    7: "Four of a Kind",
+    8: "Straight Flush"
+}
+
+# Game setup
+deck = Deck()
+player = Player()
+player.hand = deck.deal(5)
+
+print("Your initial hand:")
+for i, card in enumerate(player.hand):
+    print(f"{i}: {card}")
+
+# Discard phase
+while True:
+    discard_input = input("Enter card indices to discard (0-4, space-separated): ")
+    try:
+        indices = [int(i) for i in discard_input.split()]
+        if all(0 <= i < 5 for i in indices) and len(indices) <= 5:
+            break
+        print("Invalid input. Enter 0-4 separated by spaces.")
+    except:
+        print("Invalid input. Try again.")
+
+player.discard(indices)
+player.draw(deck.deal(len(indices)))
+
+print("\nYour final hand:")
+for card in player.hand:
+    print(card)
+
+hand_rank = evaluate_hand(player.hand)
+print(f"\nHand Rank: {hand_rank_names[hand_rank[0]]}")
+print("Details:", hand_rank)
