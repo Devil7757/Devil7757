@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>美食天地论坛</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- 顶部导航 -->
+        <header>
+            <div class="logo">
+                <h1>美食天地</h1>
+                <p>分享美食，品味生活</p>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#home">首页</a></li>
+                    <li><a href="#categories">分类</a></li>
+                    <li><a href="#popular">热门讨论</a></li>
+                    <li><a href="#recipes">食谱分享</a></li>
+                    <li><a href="#about">关于我们</a></li>
+                </ul>
+            </nav>
+            <div class="user-actions">
+                <div class="logged-out" id="logged-out-controls">
+                    <button id="login-btn">登录</button>
+                    <button id="register-btn">注册</button>
+                </div>
+                <div class="logged-in" id="logged-in-controls" style="display: none;">
+                    <span id="welcome-user">欢迎，用户</span>
+                    <button id="logout-btn">退出</button>
+                    <button id="admin-panel-btn" style="display: none;">管理面板</button>
+                </div>
+            </div>
+        </header>
+
+        <!-- 顶部广告位 -->
+        <div class="ad-banner top-ad">
+            <div class="ad-container">
+                <p class="ad-label">广告</p>
+                <div class="ad-content">
+                    <img src="https://via.placeholder.com/728x90" alt="顶部广告">
+                </div>
+            </div>
+        </div>
+
+        <!-- 主要内容区 -->
+        <main>
+            <div class="content-container">
+                <!-- 左侧内容区 -->
+                <div class="main-content">
+                    <!-- 论坛主页内容 -->
+                    <section id="forum-home" class="active-section">
+                        <h2>最新美食话题</h2>
+                        
+                        <!-- 发布新帖按钮 -->
+                        <div class="new-post-btn">
+                            <button id="create-post">发布新话题</button>
+                        </div>
+                        
+                        <!-- 话题列表 -->
+                        <div class="topic-list">
+                            <div class="topic-item">
+                                <div class="topic-avatar">
+                                    <img src="https://via.placeholder.com/50" alt="用户头像">
+                                </div>
+                                <div class="topic-content">
+                                    <h3><a href="#topic/1">如何制作正宗川菜麻婆豆腐？</a></h3>
+                                    <div class="topic-meta">
+                                        <span class="author">作者: 川菜爱好者</span>
+                                        <span class="time">发布于: 2023-10-15</span>
+                                        <span class="category">分类: 中国菜</span>
+                                    </div>
+                                    <p class="topic-preview">麻婆豆腐是四川传统名菜，由豆腐、肉末、豆瓣酱、花椒等烹制而成。我想了解如何做出正宗的口味...</p>
+                                    <div class="topic-stats">
+                                        <span><i class="icon-view"></i> 1024 浏览</span>
+                                        <span><i class="icon-comment"></i> 32 评论</span>
+                                        <span><i class="icon-like"></i> 128 点赞</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="topic-item">
+                                <div class="topic-avatar">
+                                    <img src="https://via.placeholder.com/50" alt="用户头像">
+                                </div>
+                                <div class="topic-content">
+                                    <h3><a href="#topic/2">西餐摆盘的基本技巧分享</a></h3>
+                                    <div class="topic-meta">
+                                        <span class="author">作者: 西餐大厨</span>
+                                        <span class="time">发布于: 2023-10-14</span>
+                                        <span class="category">分类: 西餐</span>
+                                    </div>
+                                    <p class="topic-preview">一道美食不仅要好吃，还要好看。今天和大家分享一些西餐摆盘的基本技巧，让你的美食看起来更加专业...</p>
+                                    <div class="topic-stats">
+                                        <span><i class="icon-view"></i> 856 浏览</span>
+                                        <span><i class="icon-comment"></i> 24 评论</span>
+                                        <span><i class="icon-like"></i> 96 点赞</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- 内容间广告 -->
+                            <div class="ad-inline">
+                                <div class="ad-container">
+                                    <p class="ad-label">广告</p>
+                                    <div class="ad-content">
+                                        <img src="https://via.placeholder.com/600x100" alt="内容间广告">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="topic-item">
+                                <div class="topic-avatar">
+                                    <img src="https://via.placeholder.com/50" alt="用户头像">
+                                </div>
+                                <div class="topic-content">
+                                    <h3><a href="#topic/3">日式拉面汤底的秘密</a></h3>
+                                    <div class="topic-meta">
+                                        <span class="author">作者: 拉面控</span>
+                                        <span class="time">发布于: 2023-10-13</span>
+                                        <span class="category">分类: 日本料理</span>
+                                    </div>
+                                    <p class="topic-preview">一碗好吃的拉面，关键在于汤底。今天来分享几种经典拉面汤底的制作方法，包括豚骨汤、酱油汤和味噌汤...</p>
+                                    <div class="topic-stats">
+                                        <span><i class="icon-view"></i> 765 浏览</span>
+                                        <span><i class="icon-comment"></i> 18 评论</span>
+                                        <span><i class="icon-like"></i> 85 点赞</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 分页 -->
+                        <div class="pagination">
+                            <a href="#" class="active">1</a>
+                            <a href="#">2</a>
+                            <a href="#">3</a>
+                            <a href="#">下一页 &raquo;</a>
+                        </div>
+                    </section>
+                    
+                    <!-- 管理员面板 -->
+                    <section id="admin-panel" style="display: none;">
+                        <h2>管理员控制面板</h2>
+                        <div class="admin-tabs">
+                            <button class="tab-btn active" data-tab="user-management">用户管理</button>
+                            <button class="tab-btn" data-tab="content-management">内容管理</button>
+                            <button class="tab-btn" data-tab="ad-management">广告管理</button>
+                            <button class="tab-btn" data-tab="site-settings">网站设置</button>
+                        </div>
+                        
+                        <!-- 用户管理 -->
+                        <div class="tab-content active" id="user-management">
+                            <h3>用户管理</h3>
+                            <div class="search-bar">
+                                <input type="text" placeholder="搜索用户...">
+                                <button>搜索</button>
+                            </div>
+                            <table class="admin-table">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>用户名</th>
+                                        <th>邮箱</th>
+                                        <th>注册时间</th>
+                                        <th>角色</th>
+                                        <th>状态</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>川菜爱好者</td>
+                                        <td>user1@example.com</td>
+                                        <td>2023-01-15</td>
+                                        <td>普通用户</td>
+                                        <td>正常</td>
+                                        <td>
+                                            <button class="edit-btn">编辑</button>
+                                            <button class="delete-btn">删除</button>
+                                            <button class="ban-btn">封禁</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td>西餐大厨</td>
+                                        <td>user2@example.com</td>
+                                        <td>2023-02-20</td>
+                                        <td>版主</td>
+                                        <td>正常</td>
+                                        <td>
+                                            <button class="edit-btn">编辑</button>
+                                            <button class="delete-btn">删除</button>
+                                            <button class="ban-btn">封禁</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <!-- 广告管理 -->
+                        <div class="tab-content" id="ad-management" style="display: none;">
+                            <h3>广告管理</h3>
+                            <div class="ad-management-controls">
+                                <button id="add-new-ad">添加新广告</button>
+                            </div>
+                            
+                            <div id="ad-form" style="display: none;">
+                                <h4>广告信息</h4>
+                                <form id="ad-create-form">
+                                    <div class="form-group">
+                                        <label for="ad-title">广告标题</label>
+                                        <input type="text" id="ad-title" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="ad-image">广告图片URL</label>
+                                        <input type="text" id="ad-image" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="ad-link">广告链接</label>
+                                        <input type="text" id="ad-link" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="ad-position">广告位置</label>
+                                        <select id="ad-position" required>
+                                            <option value="top">顶部横幅</option>
+                                            <option value="sidebar">侧边栏</option>
+                                            <option value="inline">内容间</option>
+                                            <option value="bottom">底部横幅</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="ad-start-date">开始日期</label>
+                                        <input type="date" id="ad-start-date" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="ad-end-date">结束日期</label>
+                                        <input type="date" id="ad-end-date" required>
+                                    </div>
+                                    <div class="form-actions">
+                                        <button type="submit">保存广告</button>
+                                        <button type="button" id="cancel-ad">取消</button>
+                                    </div>
+                                </form>
+                            </div>
+                            
+                            <table class="admin-table">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>标题</th>
+                                        <th>位置</th>
+                                        <th>开始日期</th>
+                                        <th>结束日期</th>
+                                        <th>状态</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>厨具促销</td>
+                                        <td>顶部横幅</td>
+                                        <td>2023-10-01</td>
+                                        <td>2023-11-01</td>
+                                        <td>活跃</td>
+                                        <td>
+                                            <button class="edit-btn">编辑</button>
+                                            <button class="delete-btn">删除</button>
+                                            <button class="toggle-btn">暂停</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td>烹饪课程</td>
+                                        <td>侧边栏</td>
+                                        <td>2023-09-15</td>
+                                        <td>2023-12-15</td>
+                                        <td>活跃</td>
+                                        <td>
+                                            <button class="edit-btn">编辑</button>
+                                            <button class="delete-btn">删除</button>
+                                            <button class="toggle-btn">暂停</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+                </div>
+                
+                <!-- 右侧侧边栏 -->
+                <aside class="sidebar">
+                    <!-- 登录/注册表单 -->
+                    <div class="auth-forms" id="auth-forms">
+                        <div class="login-form" id="login-form">
+                            <h3>用户登录</h3>
+                            <form id="login-form-element">
+                                <div class="form-group">
+                                    <label for="login-username">用户名</label>
+                                    <input type="text" id="login-username" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="login-password">密码</label>
+                                    <input type="password" id="login-password" required>
+                                </div>
+                                <div class="form-actions">
+                                    <button type="submit">登录</button>
+                                    <a href="#" id="show-register">注册新账号</a>
+                                </div>
+                            </form>
+                        </div>
+                        
+                        <div class="register-form" id="register-form" style="display: none;">
+                            <h3>注册账号</h3>
+                            <form id="register-form-element">
+                                <div class="form-group">
+                                    <label for="register-username">用户名</label>
+                                    <input type="text" id="register-username" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="register-email">电子邮箱</label>
+                                    <input type="email" id="register-email" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="register-password">密码</label>
+                                    <input type="password" id="register-password" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="register-confirm">确认密码</label>
+                                    <input type="password" id="register-confirm" required>
+                                </div>
+                                <div class="form-actions">
+                                    <button type="submit">注册</button>
+                                    <a href="#" id="show-login">返回登录</a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    
+                    <!-- 用户信息面板 -->
+                    <div class="user-panel" id="user-panel" style="display: none;">
+                        <div class="user-info">
+                            <img src="https://via.placeholder.com/80" alt="用户头像" class="user-avatar">
+                            <h3 id="user-name">用户名</h3>
+                            <p id="user-role">普通用户</p>
+                        </div>
+                        <div class="user-stats">
+                            <div class="stat-item">
+                                <span class="stat-value">12</span>
+                                <span class="stat-label">发帖数</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-value">45</span>
+                                <span class="stat-label">评论数</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-value">89</span>
+                                <span class="stat-label">获赞数</span>
+                            </div>
+                        </div>
+                        <div class="user-actions">
+                            <button id="edit-profile">编辑资料</button>
+                            <button id="my-posts">我的帖子</button>
+                        </div>
+                    </div>
+                    
+                    <!-- 侧边栏广告位 -->
+                    <div class="sidebar-ad">
+                        <div class="ad-container">
+                            <p class="ad-label">广告</p>
+                            <div class="ad-content">
+                                <img src="https://via.placeholder.com/300x250" alt="侧边栏广告">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 热门话题 -->
+                    <div class="hot-topics">
+                        <h3>热门话题</h3>
+                        <ul>
+                            <li>
+                                <a href="#">如何挑选新鲜的海鲜？</a>
+                                <span class="view-count">1.5k 浏览</span>
+                            </li>
+                            <li>
+                                <a href="#">家常菜100道精选</a>
+                                <span class="view-count">1.2k 浏览</span>
+                            </li>
+                            <li>
+                                <a href="#">烘焙入门必备工具</a>
+                                <span class="view-count">980 浏览</span>
+                            </li>
+                            <li>
+                                <a href="#">低脂健康食谱分享</a>
+                                <span class="view-count">875 浏览</span>
+                            </li>
+                            <li>
+                                <a href="#">各国特色小吃推荐</a>
+                                <span class="view-count">760 浏览</span>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <!-- 美食分类 -->
+                    <div class="categories">
+                        <h3>美食分类</h3>
+                        <ul>
+                            <li><a href="#">中华菜系</a></li>
+                            <li><a href="#">西餐料理</a></li>
+                            <li><a href="#">日本料理</a></li>
+                            <li><a href="#">韩国美食</a></li>
+                            <li><a href="#">东南亚风味</a></li>
+                            <li><a href="#">甜点饮品</a></li>
+                            <li><a href="#">烘焙面点</a></li>
+                            <li><a href="#">素食健康</a></li>
+                        </ul>
+                    </div>
+                </aside>
+            </div>
+        </main>
+        
+        <!-- 底部广告位 -->
+        <div class="ad-banner bottom-ad">
+            <div class="ad-container">
+                <p class="ad-label">广告</p>
+                <div class="ad-content">
+                    <img src="https://via.placeholder.com/728x90" alt="底部广告">
+                </div>
+            </div>
+        </div>
+        
+        <!-- 页脚 -->
+        <footer>
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>关于我们</h3>
+                    <p>美食天地论坛是一个专注于分享美食文化、烹饪技巧和食谱的社区平台。我们致力于为美食爱好者提供交流和学习的空间。</p>
+                </div>
+                <div class="footer-section">
+                    <h3>快速链接</h3>
+                    <ul>
+                        <li><a href="#">首页</a></li>
+                        <li><a href="#">论坛规则</a></li>
+                        <li><a href="#">帮助中心</a></li>
+                        <li><a href="#">联系我们</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>关注我们</h3>
